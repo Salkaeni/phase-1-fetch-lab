@@ -15,3 +15,23 @@ function renderBooks(books) {
 document.addEventListener('DOMContentLoaded', function() {
   fetchBooks();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetchBooks();
+});
+
+function fetchBooks() {
+  return fetch('https://anapioficeandfire.com/api/books')
+      .then(response => response.json())
+      .then(data => renderBooks(data))
+      .catch(error => console.error('Error fetching books:', error));
+}
+
+function renderBooks(books) {
+  const booksList = document.getElementById('books-list');
+  books.forEach(book => {
+      const listItem = document.createElement('li');
+      listItem.textContent = book.name;
+      booksList.appendChild(listItem);
+  });
+}
